@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:FoodDrinkApp.Models"
+             x:Class="FoodDrinkApp.MainPage"
+             Title="FoodieSpot"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource DarkSurface}}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top header with greeting and profile avatar -->
+        <Grid Padding="20,16" RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+            <VerticalStackLayout>
+                <Label Text="Hello, Jamie" 
+                       FontSize="22" 
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"/>
+                <Label Text="Ready to track today?" 
+                       FontSize="12"
+                       TextColor="{AppThemeBinding Light={StaticResource OnSurfaceVariant}, Dark={StaticResource DarkOnSurfaceVariant}}"/>
+            </VerticalStackLayout>
+            <Border Grid.Column="1" 
+                    Grid.RowSpan="2"
+                    WidthRequest="44" 
+                    HeightRequest="44"
+                    StrokeThickness="0"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceContainerHigh}, Dark={StaticResource DarkSurfaceContainerHigh}}"
+                    HorizontalOptions="End"
+                    VerticalOptions="Center">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22"/>
+                </Border.StrokeShape>
+                <Label Text="Profile" 
+                       FontSize="12"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"/>
+            </Border>
+        </Grid>
+
+        <!-- Daily calories card with progress bar and macronutrients -->
+        <Grid Grid.Row="1" Padding="20,0">
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryContainer}, Dark={StaticResource DarkPrimaryContainer}}"
+                    StrokeThickness="0"
+                    Padding="20"
+                    Margin="0,0,0,16">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Today's calories" 
+                           FontSize="12"
+                           TextColor="{AppThemeBinding Light={StaticResource OnPrimaryContainer}, Dark={StaticResource DarkOnPrimaryContainer}}"
+                           Opacity="0.9"/>
+                    <HorizontalStackLayout Spacing="4">
+                        <Label x:Name="CurrentCaloriesLabel" 
+                               Text="0" 
+                               FontSize="32" 
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light={StaticResource OnPrimaryContainer}, Dark={StaticResource DarkOnPrimaryContainer}}"/>
+                        <Label Text="/ 2000 kcal" 
+                               FontSize="18"
+                               TextColor="{AppThemeBinding Light={StaticResource OnPrimaryContainer}, Dark={StaticResource DarkOnPrimaryContainer}}"
+                               Opacity="0.8"
+                               VerticalTextAlignment="End"/>
+                    </HorizontalStackLayout>
+                    <!-- Progress bar -->
+                    <ProgressBar x:Name="CaloriesProgressBar" 
+                                 Progress="0"
+                                 HeightRequest="8"
+                                 ProgressColor="White"
+                                 BackgroundColor="#33FFFFFF"/>
+                    <!-- Macronutrient row -->
+                    <Grid ColumnDefinitions="*,*,*" Margin="0,8,0,0">
+                        <VerticalStackLayout HorizontalOptions="Center">
+                            <Label Text="Protein" 
+                                   FontSize="11"
+                                   TextColor="{AppThemeBinding Light={StaticResource OnPrimaryContainer}, Dark={StaticResource DarkOnPrimaryContainer}}"
+                                   Opacity="0.8"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label x:Name="ProteinLabel" 
+                                   Text="0%" 
+                                   FontSize="18" 
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light={StaticResource OnPrimaryContainer}, Dark={StaticResource DarkOnPrimaryContainer}}"
+                                   HorizontalTextAlignment="Center"/>
+                        </VerticalStackLayout>
+                        <BoxView Grid.Column="1" 
+                                 WidthRequest="1"
+                                 BackgroundColor="{AppThemeBinding Light={StaticResource OnPrimaryContainer}, Dark={StaticResource DarkOnPrimaryContainer}}"
+                                 Opacity="0.2"
+                                 HorizontalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                            <Label Text="Carbs" 
+                                   FontSize="11"
+                                   TextColor="{AppThemeBinding Light={StaticResource OnPrimaryContainer}, Dark={StaticResource DarkOnPrimaryContainer}}"
+                                   Opacity="0.8"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label x:Name="CarbsLabel" 
+                                   Text="0%" 
+                                   FontSize="18" 
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light={StaticResource OnPrimaryContainer}, Dark={StaticResource DarkOnPrimaryContainer}}"
+                                   HorizontalTextAlignment="Center"/>
+                        </VerticalStackLayout>
+                        <BoxView Grid.Column="2" 
+                                 WidthRequest="1"
+                                 BackgroundColor="{AppThemeBinding Light={StaticResource OnPrimaryContainer}, Dark={StaticResource DarkOnPrimaryContainer}}"
+                                 Opacity="0.2"
+                                 HorizontalOptions="Center"/>
+                        <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
+                            <Label Text="Fat" 
+                                   FontSize="11"
+                                   TextColor="{AppThemeBinding Light={StaticResource OnPrimaryContainer}, Dark={StaticResource DarkOnPrimaryContainer}}"
+                                   Opacity="0.8"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label x:Name="FatLabel" 
+                                   Text="0%" 
+                                   FontSize="18" 
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light={StaticResource OnPrimaryContainer}, Dark={StaticResource DarkOnPrimaryContainer}}"
+                                   HorizontalTextAlignment="Center"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+        <!-- Quick action buttons horizontal scroll -->
+        <ScrollView Grid.Row="2" 
+                    Orientation="Horizontal"
+                    Padding="20,0">
+            <HorizontalStackLayout Spacing="12">
+                <Button Text="Log Meal" 
+                        Clicked="OnLogMealClicked"
+                        BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource DarkCardBackground}}"
+                        TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"
+                        CornerRadius="30"
+                        Padding="16,10"/>
+                <Button Text="Scan Barcode" 
+                        Clicked="OnScanBarcodeClicked"
+                        BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource DarkCardBackground}}"
+                        TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"
+                        CornerRadius="30"
+                        Padding="16,10"/>
+                <Button Text="Quick Add" 
+                        Clicked="OnQuickAddClicked"
+                        BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource DarkCardBackground}}"
+                        TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"
+                        CornerRadius="30"
+                        Padding="16,10"/>
+                <Button Text="Insights" 
+                        Clicked="OnInsightsClicked"
+                        BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource DarkCardBackground}}"
+                        TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"
+                        CornerRadius="30"
+                        Padding="16,10"/>
+            </HorizontalStackLayout>
+        </ScrollView>
+
+        <!-- Recent meals section with collection view -->
+        <Grid Grid.Row="3" Padding="20,16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Section header -->
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Recent meals" 
+                       FontSize="20" 
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"/>
+                <Button Grid.Column="1" 
+                        Text="See all"
+                        BackgroundColor="Transparent"
+                        TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource DarkPrimary}}"
+                        FontSize="14"
+                        Clicked="OnSeeAllClicked"/>
+            </Grid>
+
+            <!-- Search bar -->
+            <SearchBar x:Name="SearchFoodBar"
+                       Grid.Row="1"
+                       Placeholder="Search foods, drinks, categories, or tags"
+                       TextChanged="OnSearchTextChanged"
+                       SearchButtonPressed="OnSearchButtonPressed"
+                       Margin="0,8,0,8"/>
+
+            <!-- Meal list -->
+            <RefreshView Grid.Row="2" x:Name="FoodRefreshView" Refreshing="OnRefreshing">
+                <CollectionView x:Name="FoodCollection"
+                                SelectionMode="None"
+                                EmptyView="No matching food or drink records."
+                                Margin="0,8,0,0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
+                                    StrokeThickness="0"
+                                    Padding="0"
+                                    Margin="0,0,0,12">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="16"/>
+                                </Border.StrokeShape>
+                                <Grid ColumnDefinitions="Auto,*,Auto" Padding="12" ColumnSpacing="12">
+                                    <!-- Food image placeholder -->
+                                    <Border WidthRequest="64" 
+                                            HeightRequest="64"
+                                            BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceContainerHighest}, Dark={StaticResource DarkSurfaceContainerHigh}}"
+                                            StrokeThickness="0">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="12"/>
+                                        </Border.StrokeShape>
+                                        <Label Text="Food" 
+                                               FontSize="12"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"/>
+                                    </Border>
+                                    <!-- Food info -->
+                                    <VerticalStackLayout Grid.Column="1">
+                                        <Label Text="{Binding Name}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"
+                                               LineBreakMode="TailTruncation"/>
+                                        <Label Text="{Binding Description}"
+                                               FontSize="12"
+                                               TextColor="{AppThemeBinding Light={StaticResource OnSurfaceVariant}, Dark={StaticResource DarkOnSurfaceVariant}}"
+                                               LineBreakMode="TailTruncation"/>
+                                        <Label Text="{Binding Category}"
+                                               FontSize="11"
+                                               TextColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource DarkSecondary}}"/>
+                                    </VerticalStackLayout>
+                                    <!-- Calories -->
+                                    <VerticalStackLayout Grid.Column="2" HorizontalOptions="End">
+                                        <Label Text="{Binding CaloriesLabel}"
+                                               FontSize="16"
+                                               FontAttributes="Bold"
+                                               TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource DarkPrimary}}"/>
+                                        <Button Text="Details"
+                                                Padding="12,6"
+                                                BackgroundColor="Transparent"
+                                                TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource DarkPrimary}}"
+                                                FontSize="11"
+                                                CommandParameter="{Binding Id}"
+                                                Clicked="OnDetailsClicked"/>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+
+            <!-- Motivation quote card -->
+            <Border Grid.Row="3" 
+                    BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryContainer}, Dark={StaticResource DarkSecondaryContainer}}"
+                    StrokeThickness="0"
+                    Padding="20"
+                    Margin="0,16,0,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="12" HorizontalOptions="Center">
+                    <Label Text="&quot;" 
+                           FontSize="24"
+                           TextColor="{AppThemeBinding Light={StaticResource OnSecondaryContainer}, Dark={StaticResource DarkOnSecondaryContainer}}"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Text="Nourishing your body is an act of self-care, not a chore."
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light={StaticResource OnSecondaryContainer}, Dark={StaticResource DarkOnSecondaryContainer}}"
+                           HorizontalTextAlignment="Center"
+                           LineBreakMode="WordWrap"/>
+                    <Border BackgroundColor="{AppThemeBinding Light=White, Dark={StaticResource DarkSurface}}"
+                            StrokeThickness="0"
+                            Padding="12,6">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="30"/>
+                        </Border.StrokeShape>
+                        <Label Text="Keep it up, Jamie!"
+                               FontSize="11"
+                               TextColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource DarkSecondary}}"/>
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>
