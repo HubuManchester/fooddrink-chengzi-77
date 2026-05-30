@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell x:Class="FoodDrinkApp.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:FoodDrinkApp"
+       Title="FoodieSpot"
+       FlyoutBehavior="Disabled"
+       Shell.BackgroundColor="{AppThemeBinding Light=#FAFAF5, Dark=#1A1C19}"
+       Shell.ForegroundColor="{AppThemeBinding Light=#436644, Dark=#8BCF8E}"
+       Shell.TitleColor="{AppThemeBinding Light=#436644, Dark=#8BCF8E}"
+       Shell.UnselectedColor="{AppThemeBinding Light=#9A7B63, Dark=#BFA58E}"
+       Shell.TabBarBackgroundColor="{AppThemeBinding Light=#FAFAF5, Dark=#1A1C19}"
+       Shell.TabBarForegroundColor="{AppThemeBinding Light=#436644, Dark=#8BCF8E}"
+       Shell.TabBarTitleColor="{AppThemeBinding Light=#436644, Dark=#8BCF8E}"
+       Shell.TabBarUnselectedColor="{AppThemeBinding Light=#9A7B63, Dark=#BFA58E}">
+
+    <TabBar>
+        <ShellContent Title="Foods" 
+                      ContentTemplate="{DataTemplate local:MainPage}" 
+                      Icon="{FontImage Glyph=🍽️, Color={StaticResource Primary}, Size=22}"
+                      Route="MainPage" />
+        <ShellContent Title="Hardware" 
+                      ContentTemplate="{DataTemplate local:HardwarePage}" 
+                      Icon="{FontImage Glyph=📱, Color={StaticResource Primary}, Size=22}"
+                      Route="HardwarePage" />
+        <ShellContent Title="Settings" 
+                      ContentTemplate="{DataTemplate local:SettingsPage}" 
+                      Icon="{FontImage Glyph=⚙️, Color={StaticResource Primary}, Size=22}"
+                      Route="SettingsPage" />
+    </TabBar>
+</Shell>

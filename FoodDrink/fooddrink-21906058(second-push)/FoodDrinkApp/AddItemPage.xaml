@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodDrinkApp.AddItemPage"
+             Title="Add Food Item"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource DarkSurface}}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Food Name" FontAttributes="Bold"/>
+            <Entry x:Name="NameEntry" Placeholder="e.g., Avocado Toast"/>
+
+            <Label Text="Category" FontAttributes="Bold"/>
+            <Picker x:Name="CategoryPicker" Title="Select a category">
+                <Picker.Items>
+                    <x:String>Breakfast</x:String>
+                    <x:String>Lunch</x:String>
+                    <x:String>Dinner</x:String>
+                    <x:String>Snack</x:String>
+                    <x:String>Drink</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <Label Text="Description" FontAttributes="Bold"/>
+            <Editor x:Name="DescriptionEditor" 
+                    Placeholder="Describe the food item"
+                    HeightRequest="80"/>
+
+            <Label Text="Nutrition Information" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                <VerticalStackLayout>
+                    <Label Text="Calories" FontSize="12"/>
+                    <Entry x:Name="CaloriesEntry" Placeholder="kcal" Keyboard="Numeric"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1">
+                    <Label Text="Protein" FontSize="12"/>
+                    <Entry x:Name="ProteinEntry" Placeholder="g" Keyboard="Numeric"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="2">
+                    <Label Text="Carbs" FontSize="12"/>
+                    <Entry x:Name="CarbsEntry" Placeholder="g" Keyboard="Numeric"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="3">
+                    <Label Text="Fat" FontSize="12"/>
+                    <Entry x:Name="FatEntry" Placeholder="g" Keyboard="Numeric"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <Label Text="Allergy Note" FontAttributes="Bold" Margin="0,10,0,0"/>
+            <Entry x:Name="AllergyEntry" Placeholder="e.g., Contains nuts, gluten-free"/>
+
+            <!-- Photo section -->
+            <Label Text="Food Photo" FontAttributes="Bold" Margin="0,10,0,5"/>
+            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                <Border x:Name="PhotoPreviewBorder"
+                        WidthRequest="80"
+                        HeightRequest="80"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceContainerLow}, Dark={StaticResource DarkSurfaceContainerLow}}"
+                        StrokeThickness="1">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Image x:Name="PhotoPreview"
+                           Source="camera_icon.png"
+                           Aspect="AspectFill"/>
+                </Border>
+                <Button Grid.Column="1"
+                        Text="Take Photo"
+                        Clicked="OnTakePhotoClicked"
+                        VerticalOptions="Center"/>
+                <Button Grid.Column="2"
+                        Text="Clear"
+                        Clicked="OnClearPhotoClicked"
+                        VerticalOptions="Center"/>
+            </Grid>
+
+            <!-- Validation message -->
+            <Label x:Name="ValidationLabel" 
+                   TextColor="Red" 
+                   IsVisible="False"
+                   FontSize="12"/>
+
+            <Button Text="Save"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource DarkPrimary}}"
+                    TextColor="White"
+                    CornerRadius="12"
+                    HeightRequest="50"
+                    Clicked="OnSaveClicked"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
