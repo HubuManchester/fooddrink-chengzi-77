@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodDrinkApp.FoodDetailPage"
+             Title="Nutrition Details"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource DarkSurface}}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Hero Image -->
+            <Border StrokeThickness="0"
+                    HeightRequest="300"
+                    Margin="0,0,0,10">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="24"/>
+                </Border.StrokeShape>
+                <Image x:Name="FoodImage"
+                       Source="food_placeholder.png"
+                       Aspect="AspectFill"/>
+            </Border>
+
+            <!-- Food Name and Category -->
+            <Grid ColumnDefinitions="*,Auto">
+                <VerticalStackLayout>
+                    <Label x:Name="NameLabel" 
+                           Text="Avocado Toast"
+                           FontSize="28" 
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"/>
+                    <Label x:Name="CategoryLabel" 
+                           Text="Breakfast"
+                           FontSize="14"
+                           TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource DarkPrimary}}"/>
+                </VerticalStackLayout>
+                <!-- Calories Badge -->
+                <Border Grid.Column="1"
+                        WidthRequest="80"
+                        HeightRequest="80"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource DarkPrimary}}"
+                        StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="40"/>
+                    </Border.StrokeShape>
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label x:Name="CaloriesLabel" 
+                               Text="320 kcal"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="White"
+                               HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Description -->
+            <Label Text="Description"
+                   FontSize="14"
+                   FontAttributes="Bold"
+                   TextColor="{AppThemeBinding Light={StaticResource OnSurfaceVariant}, Dark={StaticResource DarkOnSurfaceVariant}}"/>
+            <Label x:Name="DescriptionLabel" 
+                   Text="Classic creamy breakfast with avocado on sourdough"
+                   FontSize="16"
+                   TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"
+                   LineBreakMode="WordWrap"/>
+
+            <!-- Nutrition Card -->
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
+                    StrokeThickness="0"
+                    Padding="16"
+                    Margin="0,10,0,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16"/>
+                </Border.StrokeShape>
+                <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto">
+                    <Label Grid.Row="0" Grid.Column="0" 
+                           Text="Protein" 
+                           FontSize="12"
+                           TextColor="{AppThemeBinding Light={StaticResource OnSurfaceVariant}, Dark={StaticResource DarkOnSurfaceVariant}}"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Grid.Row="0" Grid.Column="1" 
+                           Text="Carbs" 
+                           FontSize="12"
+                           TextColor="{AppThemeBinding Light={StaticResource OnSurfaceVariant}, Dark={StaticResource DarkOnSurfaceVariant}}"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Grid.Row="0" Grid.Column="2" 
+                           Text="Fat" 
+                           FontSize="12"
+                           TextColor="{AppThemeBinding Light={StaticResource OnSurfaceVariant}, Dark={StaticResource DarkOnSurfaceVariant}}"
+                           HorizontalTextAlignment="Center"/>
+                    <Label x:Name="ProteinLabel" 
+                           Grid.Row="1" Grid.Column="0" 
+                           Text="8g" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource DarkPrimary}}"
+                           HorizontalTextAlignment="Center"/>
+                    <Label x:Name="CarbsLabel" 
+                           Grid.Row="1" Grid.Column="1" 
+                           Text="28g" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource DarkPrimary}}"
+                           HorizontalTextAlignment="Center"/>
+                    <Label x:Name="FatLabel" 
+                           Grid.Row="1" Grid.Column="2" 
+                           Text="22g" 
+                           FontSize="20" 
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource DarkPrimary}}"
+                           HorizontalTextAlignment="Center"/>
+                </Grid>
+            </Border>
+
+            <!-- Macro Summary -->
+            <Label x:Name="MacroLabel" 
+                   Text="Protein 8g, carbs 28g, fat 22g"
+                   FontSize="14"
+                   TextColor="{AppThemeBinding Light={StaticResource OnSurfaceVariant}, Dark={StaticResource DarkOnSurfaceVariant}}"/>
+
+            <!-- Allergy Note -->
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryContainer}, Dark={StaticResource DarkSecondaryContainer}}"
+                    StrokeThickness="0"
+                    Padding="12">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <HorizontalStackLayout Spacing="8">
+                    <Label Text="⚠️" FontSize="16"/>
+                    <Label x:Name="AllergyLabel" 
+                           Text="Contains gluten"
+                           FontSize="14"
+                           TextColor="{AppThemeBinding Light={StaticResource OnSecondaryContainer}, Dark={StaticResource DarkOnSecondaryContainer}}"/>
+                </HorizontalStackLayout>
+            </Border>
+
+            <!-- Action Buttons -->
+            <VerticalStackLayout Spacing="12" Margin="0,20,0,0">
+                <Button Text="Read summary"
+                        Clicked="OnSpeakClicked"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource DarkPrimary}}"
+                        TextColor="White"
+                        CornerRadius="30"
+                        HeightRequest="50"
+                        FontAttributes="Bold"/>
+                <Button Text="Stop reading"
+                        Clicked="OnStopSpeechClicked"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceContainerHigh}, Dark={StaticResource DarkSurfaceContainerHigh}}"
+                        TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"
+                        CornerRadius="30"
+                        HeightRequest="50"
+                        FontAttributes="Bold"/>
+                <Button Text="Vibration reminder"
+                        Clicked="OnVibrateClicked"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceContainerHigh}, Dark={StaticResource DarkSurfaceContainerHigh}}"
+                        TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"
+                        CornerRadius="30"
+                        HeightRequest="50"
+                        FontAttributes="Bold"/>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
