@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FoodDrinkApp.HardwarePage"
+             Title="Hardware Demo"
+             BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource DarkSurface}}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Section Header -->
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Mobile hardware" 
+                       FontSize="22" 
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"/>
+                <Label Text="Demonstrate camera, location, speech, vibration, and haptic feedback."
+                       FontSize="14"
+                       TextColor="{AppThemeBinding Light={StaticResource OnSurfaceVariant}, Dark={StaticResource DarkOnSurfaceVariant}}"/>
+            </VerticalStackLayout>
+
+            <!-- Food Photo Card -->
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
+                    StrokeThickness="0"
+                    Padding="16"
+                    Margin="0,0,0,12">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Food photo" 
+                           FontSize="16" 
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"/>
+                    <Label Text="Capture the colour and condition of the meal."
+                           FontSize="14"
+                           TextColor="{AppThemeBinding Light={StaticResource OnSurfaceVariant}, Dark={StaticResource DarkOnSurfaceVariant}}"/>
+                    <Button Text="Photo"
+                            Clicked="OnTakePhotoClicked"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource DarkPrimary}}"
+                            TextColor="White"
+                            CornerRadius="30"
+                            HeightRequest="50"/>
+                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceContainerLow}, Dark={StaticResource DarkSurfaceContainerLow}}"
+                            HeightRequest="200"
+                            StrokeThickness="0"
+                            IsVisible="False"
+                            x:Name="PhotoPreviewBorder">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Image x:Name="FoodPhoto"
+                               Aspect="AspectFill"/>
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Meal Location Card -->
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
+                    StrokeThickness="0"
+                    Padding="16"
+                    Margin="0,0,0,12">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Meal location" 
+                           FontSize="16" 
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"/>
+                    <Label Text="Show country, city, region, and coordinates."
+                           FontSize="14"
+                           TextColor="{AppThemeBinding Light={StaticResource OnSurfaceVariant}, Dark={StaticResource DarkOnSurfaceVariant}}"/>
+                    <Button Text="Locate"
+                            Clicked="OnGetLocationClicked"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource DarkPrimary}}"
+                            TextColor="White"
+                            CornerRadius="30"
+                            HeightRequest="50"/>
+                    <Border BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceContainerLow}, Dark={StaticResource DarkSurfaceContainerLow}}"
+                            Padding="12"
+                            StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="4">
+                            <Label x:Name="LocationLabel"
+                                   Text="Location has not been captured yet."
+                                   FontSize="14"
+                                   TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"/>
+                            <Label x:Name="CoordinateLabel"
+                                   Text="Coordinates will appear here."
+                                   FontSize="12"
+                                   TextColor="{AppThemeBinding Light={StaticResource OnSurfaceVariant}, Dark={StaticResource DarkOnSurfaceVariant}}"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Speech Controls Card -->
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
+                    StrokeThickness="0"
+                    Padding="16"
+                    Margin="0,0,0,12">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Speech controls" 
+                           FontSize="16" 
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"/>
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                        <Button Text="Read help"
+                                Clicked="OnReadHelpClicked"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource DarkPrimary}}"
+                                TextColor="White"
+                                CornerRadius="30"
+                                HeightRequest="50"/>
+                        <Button Grid.Column="1"
+                                Text="Stop speech"
+                                Clicked="OnStopSpeechClicked"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource DarkSecondary}}"
+                                TextColor="White"
+                                CornerRadius="30"
+                                HeightRequest="50"/>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Haptic Feedback Card -->
+            <Border BackgroundColor="{AppThemeBinding Light={StaticResource CardBackground}, Dark={StaticResource DarkCardBackground}}"
+                    StrokeThickness="0"
+                    Padding="16"
+                    Margin="0,0,0,12">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="16"/>
+                </Border.StrokeShape>
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Haptic feedback" 
+                           FontSize="16" 
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light={StaticResource OnSurface}, Dark={StaticResource DarkOnSurface}}"/>
+                    <Button Text="Test vibration"
+                            Clicked="OnFeedbackClicked"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource DarkPrimary}}"
+                            TextColor="White"
+                            CornerRadius="30"
+                            HeightRequest="50"/>
+                    <Label x:Name="FeedbackCountLabel"
+                           Text="Haptic feedback tests: 0"
+                           FontSize="14"
+                           TextColor="{AppThemeBinding Light={StaticResource OnSurfaceVariant}, Dark={StaticResource DarkOnSurfaceVariant}}"
+                           HorizontalTextAlignment="Center"/>
+                    <Label x:Name="HardwareStatusLabel"
+                           Text="Ready."
+                           FontSize="12"
+                           TextColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource DarkSecondary}}"
+                           HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
